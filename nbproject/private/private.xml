@@ -3,17 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/sisacreditacion/controller/evento_proyeccion_socialController.php</file>
-            <file>file:/C:/xampp/htdocs/sisacreditacion/view/evento_proyeccion_social/_Index.php</file>
-            <file>file:/C:/xampp/htdocs/sisacreditacion/model/evento.php</file>
-            <file>file:/C:/xampp/htdocs/sisacreditacion/view/evento_proyeccion_social/_sub_eventos.php</file>
-            <file>file:/C:/xampp/htdocs/sisacreditacion/controller/actividadacademicaController.php</file>
+            <file>file:/C:/xampp/htdocs/sisacreditacion/view/evento_proyeccion_social/_descrDetalles.php</file>
             <file>file:/C:/xampp/htdocs/sisacreditacion/view/evento_proyeccion_social/_Form.php</file>
-            <file>file:/C:/xampp/htdocs/sisacreditacion/model/Main.php</file>
-            <file>file:/C:/xampp/htdocs/sisacreditacion/view/evento_proyeccion_social/_pre_actividades.php</file>
+            <file>file:/C:/xampp/htdocs/sisacreditacion/view/evento_proyeccion_social/_sub_eventos.php</file>
             <file>file:/C:/xampp/htdocs/sisacreditacion/lib/Controller.php</file>
-            <file>file:/C:/xampp/htdocs/sisacreditacion/view/evento/_Form.php</file>
-            <file>file:/C:/xampp/htdocs/sisacreditacion/model/evento_proyeccion_social.php</file>
+            <file>file:/C:/xampp/htdocs/sisacreditacion/view/evento_proyeccion_social/_Index.php</file>
+            <file>file:/C:/xampp/htdocs/sisacreditacion/controller/evento_proyeccion_socialController.php</file>
+            <file>file:/C:/xampp/htdocs/sisacreditacion/view/_grilla_E_PS_EU.php</file>
         </group>
     </open-files>
 </project-private>

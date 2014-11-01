@@ -109,19 +109,6 @@
                        <div class="col-md-12">
                                 <div class="col-md-6">
                                     <span class="input-group-addon"><big> <strong for="tipo_evento" style="width: 80px"> Tipo de Evento</strong></big></span>
-                                    <select id="idtipo_evento" name="idtipo_evento" class="ui-corner-all text ui-widget-content" style="width: 161px;">
-                                        <option value="">...</option>
-                                    </select>
-                                    
-                               <!-- <?php if (!isset($tipo_evento)) { ?>
-                                    <select id="idtipo_evento" name="idtipo_evento" class="ui-corner-all text ui-widget-content" style="width: 161px;">
-                                        <option value="">...</option>
-                                    </select>
-                                    <?php
-                                } else {
-                                    echo $tipo_evento;
-                                }
-                                ?>--> 
 
                                 <?php echo $tipo_evento; ?>
                                 </div>

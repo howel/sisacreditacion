@@ -236,6 +236,29 @@ public function Select($p) {
         $view->setLayout('../template/Layout.php');
         return $view->renderPartial();
     }
+    
+     public function grilla_E_PS_EU($name,$columns,$rows,$options,$pag,$edit,$view,$select=false,$new=true,$ver_detalles=false,$unirse=false)
+    {
+        $obj = new Main();        
+        $data = array();
+        $data['nr'] = $obj->getnr();
+        $data['cols'] = $columns;
+        $data['rows'] = $rows;
+        $data['edit'] = $edit;
+        $data['view'] = $view;
+        $data['select'] = $select;
+        $data['name'] = $name;
+        $data['pag'] = $pag;
+        $data['new'] = $new;
+        $data['ver_detalles'] = $ver_detalles;
+        $data['combo_search'] = $this->Combo_Search($options);
+        $view = new View();
+        $view->setData($data);
+        $view->setTemplate( '../view/_grilla_E_PS_EU.php' );
+        $view->setLayout( '../template/Layout.php' );
+        return $view->renderPartial();       
+    }
+    
     public function Select1($p) {
         $obj = new Main();
 //        $obj->table = $p['table'];

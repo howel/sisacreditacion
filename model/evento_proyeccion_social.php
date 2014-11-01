@@ -10,9 +10,6 @@ class evento_proyeccion_social extends Main {
                             evento.tema,
                             tipo_evento.descripcion,
                             evento.fecha,
-                            evento.lugar,
-                           "<center><img src=images/marker_1.gif /></center>",
-			
                             evento.lugar
                             FROM
                             evento
