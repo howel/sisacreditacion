@@ -1,0 +1,70 @@
+SELECT
+	evento.idevento,
+	detalle_asistencia_docente,
+	evento.tema,
+	tipo_evento.descripcion,
+	evento.fecha,
+	evento.lugar
+FROM evento INNER JOIN tipo_evento ON tipo_evento.idtipo_evento = evento.idtipo_evento
+ORDER BY
+evento.idevento ASC
+*******************************************************************
+**********************************
+
+SELECT
+evento.tema,
+evento.fecha,
+profesores.NombreProfesor,
+detalle_asistencia_docente.CodigoProfesor,
+detalle_asistencia_docente.idevento
+FROM
+detalle_asistencia_docente
+INNER JOIN evento ON detalle_asistencia_docente.idevento = evento.idevento
+INNER JOIN profesores ON detalle_asistencia_docente.CodigoProfesor = profesores.CodigoProfesor
+
+************************************
+***********************************************************************
+
+SELECT
+	evento.idevento,
+	evento.tema,
+	tipo_evento.descripcion,
+	evento.fecha,
+	evento.lugar
+FROM evento INNER JOIN tipo_evento ON tipo_evento.idtipo_evento = evento.idtipo_evento
+ORDER BY
+evento.idevento ASC
+
+*********************************************************************
+*******************************************************
+
+SELECT
+evento.tema,
+CONCAT(profesores.ApellidoPaterno,' ',profesores.ApellidoMaterno,' ',profesores.NombreProfesor) AS Responsable,
+tipo_evento.descripcion,
+evento.fecha,
+evento.lugar
+FROM
+evento
+INNER JOIN tipo_evento ON tipo_evento.idtipo_evento = evento.idtipo_evento
+INNER JOIN detalle_asistencia_docente ON detalle_asistencia_docente.idevento = evento.idevento
+INNER JOIN profesores ON detalle_asistencia_docente.CodigoProfesor = profesores.CodigoProfesor
+
+**********************************
+*********************************************************************************
+
+SELECT 
+                        proyecto.nombre_proyecto,
+                        proyecto.periodo_ejecucion,
+                        CONCAT(profesores.ApellidoPaterno,' ',profesores.ApellidoMaterno,' ',profesores.NombreProfesor) AS Responsable,
+                        estado_proyecto.descripcion,
+                        MAX(DISTINCT(control_proyecto.fecha)) as Fecha_Inicio
+                        FROM
+                        proyecto
+                        INNER JOIN detalle_profesor_proy_fun ON proyecto.idproyecto = detalle_profesor_proy_fun.idproyecto
+                        INNER JOIN profesores ON profesores.CodigoProfesor = detalle_profesor_proy_fun.CodigoProfesor
+                        INNER JOIN control_proyecto ON proyecto.idproyecto = control_proyecto.idproyecto
+                        INNER JOIN estado_proyecto ON control_proyecto.idestado_proyecto = estado_proyecto.idestado_proyecto
+                        where detalle_profesor_proy_fun.idfuncion=2 AND ((proyecto.nombre_proyecto LIKE'%a%') or (profesores.NombreProfesor 
+                        LIKE'%a%') or (profesores.ApellidoPaterno LIKE'%a%') or (profesores.ApellidoMaterno LIKE'%a%'))
+                        GROUP BY proyecto.idproyecto
