@@ -1,10 +1,27 @@
 <?php include("../lib/functions.php"); ?>
 <script type="text/javascript" >
     $(function() {
-$('#tsub_eventos').DataTable({
+//$('#tsub_eventos').DataTable({
+//        "paging":   true,
+//        "sPaginationType": "full_numbers",
+//        "bJQueryUI":true
+//    } );
+var t=$('#tsub_eventos').DataTable({
         "paging":   true,
         "sPaginationType": "full_numbers",
-        "bJQueryUI":true
+        "bJQueryUI":true,
+        "language": {
+            "lengthMenu": "filas _MENU_ ",
+            "zeroRecords": "No hay registros que coincidan con la busqueda",
+            "info": "Mostrando _PAGE_ de _PAGES_ entradas",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtered from _MAX_ total records)"
+        }
+    } );
+     $("#addRow").click(function() {
+     t.row.add( [
+            'hola','hola','hola','hola','hola','hola','hola','hola','hola','hola'
+        ] ).draw();
     } );
     });
 </script>
@@ -18,8 +35,8 @@ $('#tsub_eventos').DataTable({
     <div class="contFrm ui-corner-all" style="background: #fff;">
         <div class="contenido" style="margin:0 auto; width: 100%; ">
             <fieldset class="ui-corner-all" >
-                <legend align="left">REGISTRO DE SUB EVENTOS</legend> 
-                <button type="button" id="addRow">Agregar</button>
+                <legend id="legendsub_evento" align="left">REGISTRO DE SUB EVENTOS</legend> 
+                 <button type="button" id="addRow" class="btn btn-info"><img alt="" src="images/add.png" />Agregar</button>
                 <br>
                 <table id="tsub_eventos" class="display" cellspacing="0" width="100%">
                     <thead>
@@ -32,8 +49,11 @@ $('#tsub_eventos').DataTable({
                             <th>CodigoProfesor</th>
                             <th>lugar</th>
                             <th>UBIGEO</th>
-                            <th></th>
-                            <th></th>
+                            <?php if($_REQUEST['action']!='show_detalles'){
+                                echo "<th></th>
+                            <th></th> ";
+                            }
+                            ?>
                            
                             
                         </tr>
@@ -49,8 +69,11 @@ $('#tsub_eventos').DataTable({
                             <th>CodigoProfesor</th>
                             <th>lugar</th>
                             <th>UBIGEO</th>
-                            <th></th>
-                            <th></th>
+                              <?php if($_REQUEST['action']!='show_detalles'){
+                                echo "<th></th>
+                            <th></th> ";
+                            }
+                            ?>
                             
                             
                          
@@ -69,9 +92,10 @@ $('#tsub_eventos').DataTable({
                             echo "<td>".$value['CodigoProfesor']."</td>";
                             echo "<td>".$value['lugar']."</td>";
                             echo "<td>".$value['UBIGEO']."</td>";
+                            if($_REQUEST['action']!='show_detalles'){
                             echo "<td><a href='' class='glyphicon glyphicon-edit'><span class='glyphicon glyphicon-trash'></span></td>";
                             echo "<td><a href='javascript:' class='glyphicon glyphicon-trash'></td>";
-                           
+                            }
                             echo"</tr>";
                         }?>
                     <tbody>
@@ -86,5 +110,5 @@ $('#tsub_eventos').DataTable({
 
     </div>
 </form>
-<div id="pre_acctividades"></div>
-</div>
+<div id="pre_actividades"></div>
+

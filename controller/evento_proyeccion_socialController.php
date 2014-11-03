@@ -26,7 +26,7 @@ class evento_proyeccion_socialController extends Controller {
         $cols = array("CODIGO", "TEMA DE EVENTO", "TIPO", "FECHA", "LUGAR");
 //,"UNIRSE"
         $opt = array("evento_proyeccion_social.DescripcionTipoColegio" => "Tema");
-    $data['grilla'] = $this->grilla_E_PS_EU("evento_proyeccion_social", $cols, $data['data']['rows'], $opt, $data['pag'], true, true, false, true,true,true);
+    $data['grilla'] = $this->grilla_E_PS_EU("evento_proyeccion_social", $cols, $data['data']['rows'], $opt, $data['pag'], true, true, false, true,true,false);
         $view = new View();
         $view->setData($data);
         $view->setTemplate('../view/evento_proyeccion_social/_Index.php');
@@ -47,6 +47,7 @@ class evento_proyeccion_socialController extends Controller {
         $data['distrito'] = $this->Select_ajax_string_dis(array('id' => 'distrito', 'name' => 'distrito', 'table' => 'ubigeos$', 'filtro' => 'PROVINCIA', 'criterio' => $ubigeos['PROVINCIA'], 'code' => $obj['UBIGEO'], 'ajax' => false));
         $data['sub_eventos']=$this->leer_sub_eventos($_GET['id']);
         $data['pre_actividades']=$this->leer_pre_actividades($_GET['id']);
+
         $data['tipo_evento'] = $this->Select(array('id' => 'idtipo_evento', 'name' => 'idtipo_evento', 'table' => 'tipo_evento where tipo_evento.idtipo_evento="3" or tipo_evento.idtipo_evento="5"', 'code' => $obj['idtipo_evento']));
         
         
@@ -63,6 +64,9 @@ class evento_proyeccion_socialController extends Controller {
         $obj = new evento_proyeccion_social();
         $data = array();
         $view = new View();
+        $prof=$data['profesores']=$obj->get_profesores($_GET['id']);
+        $prof=$data['alumnos']=$obj->get_alumnos($_GET['id']);
+        $prof=$data['externos']=$obj->get_externos($_GET['id']);
         $obj = $data['obj'] = $this->getFiels(array("tabla" => "evento", "campo" => "idevento", "idtabla" => $_REQUEST['id']));
         $dat = $data['obj_tipo'] = $this->getFiels(array("tabla" => "tipo_evento", "campo" => "idtipo_evento", "idtabla" => $obj['idtipo_evento']));
         $ubigeos = $ubigeo->getDatos($obj['UBIGEO']);
@@ -72,7 +76,7 @@ class evento_proyeccion_socialController extends Controller {
         $data['sub_eventos']=$this->leer_sub_eventos($_GET['id']);
         $data['pre_actividades']=$this->leer_pre_actividades($_GET['id']);
         $data['tipo_evento'] = $this->Select(array('id' => 'idtipo_evento', 'name' => 'idtipo_evento', 'table' => 'tipo_evento where tipo_evento.idtipo_evento="3" or tipo_evento.idtipo_evento="5"', 'code' => $obj['idtipo_evento']));
-        
+
        
         $view->setData($data);
         $view->setTemplate('../view/evento_proyeccion_social/_descrDetalles.php');
@@ -80,18 +84,52 @@ class evento_proyeccion_socialController extends Controller {
         $view->render();
     }
     
-  public function unirse_evento(){
- 
-      
- }
+    public function unirse_evento(){
+        
+    }
     
-    public function save() {
+     public function sub_eventos_preactividades($idevento) {
+        
+       echo $data['sub_eventos'] = $this->leer_sub_eventos($idevento);
+       echo  $data['pre_actividades'] = $this->leer_pre_actividades($idevento);   
+    }
+    
+  
+ public function index_Alum(){
+     if (!isset($_GET['p'])) {
+            $_GET['p'] = 1;
+        }
+        if (!isset($_GET['q'])) {
+            $_GET['q'] = "";
+        }
+        if (!isset($_GET['criterio'])) {
+            $_GET['criterio'] = "idevento";
+        }
+        $obj = new evento_proyeccion_social();
+        $data = array();
+        $datos = $data['data'] = $obj->index($_GET['q'], $_GET['p'], $_GET['criterio']);
+        $data['query'] = $_GET['q'];
+        $data['pag'] = $this->Pagination(array('rows' => $data['data']['rowspag'], 'url' => 'index.php?controller=evento_proyeccion_social&action=index', 'query' => $_GET['q']));
+
+        $cols = array("CODIGO", "TEMA DE EVENTO", "TIPO", "FECHA", "LUGAR");
+//,"UNIRSE"
+        $opt = array("evento_proyeccion_social.DescripcionTipoColegio" => "Tema");
+    $data['grilla'] = $this->grilla_E_PS_EU("evento_proyeccion_social", $cols, $data['data']['rows'], $opt, $data['pag'], false, false, false, false,false,true);
+        $view = new View();
+        $view->setData($data);
+        $view->setTemplate('../view/evento_proyeccion_social/_Index.php');
+        $view->setLayout('../template/Layout.php');
+        $view->render();
+ }
+
+
+ public function save() {
         $obj = new evento_proyeccion_social();
         if ($_POST['idevento'] == '') {
             $p = $obj->insert($_REQUEST);
             if ($p[0]) {
                 $idevento = $p['idevento'];
-                $this->sub_eventos($idevento);
+                $this->sub_eventos_preactividades($idevento);
             } else {
                 $data = array();
                 $view = new View();

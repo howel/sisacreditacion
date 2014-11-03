@@ -39,6 +39,18 @@ public function leer_sub_eventos($idevento) {
         $view->setTemplate('../view/evento_proyeccion_social/_pre_actividades.php');
         return $view->renderPartial();
     }
+    
+    public function leer_pre_actividades_sinUpdate($idevento) {
+          
+        $obj = new main();
+        $view = new View();
+        $data=array();
+        $datos=$data['rows'] = $obj->get_pre_actividades($idevento);
+//        print_r($datos);exit;
+        $view->setData($data);
+        $view->setTemplate('../view/evento_proyeccion_social/_pre_actividades.php');
+        return $view->renderPartial();
+    }
 
     
 public function getFiels($p){
@@ -251,6 +263,7 @@ public function Select($p) {
         $data['pag'] = $pag;
         $data['new'] = $new;
         $data['ver_detalles'] = $ver_detalles;
+        $data['unirse'] = $unirse;
         $data['combo_search'] = $this->Combo_Search($options);
         $view = new View();
         $view->setData($data);
