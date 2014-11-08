@@ -4,7 +4,7 @@
 <div class="div_container">
 <h6 class="ui-widget-header">Eventos Registradas</h6>
 <?php if($_SESSION['cargo']=='Presidente' && $_SESSION['comicion']=='COMISION ESPECIAL DE TUTORIA'){
-    echo "<div align='center'><button style='margin-left:90px;cursor:pointer;' onclick='crear_modo_sin_cargo();'  class='ver btn btn-success btn-xs'>Crear Mi Evento Personal</button></div>";  
+   // echo "<div align='center'><button style='margin-left:90px;cursor:pointer;' onclick='crear_modo_sin_cargo();'  class='ver btn btn-success btn-xs'>jhjhjh</button></div>";  
 }?>
 <?php echo $grilla;?>
 </div>

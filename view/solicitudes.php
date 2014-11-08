@@ -110,7 +110,7 @@
         });
 
     });
-</script>     
+</script>      
 
 <style>
     #dialogo table{
@@ -139,7 +139,7 @@
 </style> 
 
 
-<div id="dialogo2" style="" title="ACEPTAR">
+    <div id="dialogo2" style="" title="ACEPTAR">
         <form action="index.php" id="frm" method="POST">
             <input type="hidden" name="controller" value="solicitudes" />
             <input type="hidden" name="action" value="save" />
@@ -167,9 +167,7 @@
             <button type="button" class="btn btn-danger cerrar3">Cancelar</button>
         </form>
     </div>
-
 <div id="solicitudes" style=" margin-left: 20px;">
-    <?php if(count($rows)!=0){?>
     <table id="datatables" class="display">
         <thead>
             <tr>
@@ -213,22 +211,21 @@
                                     </span>
                                 </li>
                             </div> 
-                            </div> 
                         </td>
                         <td>
                             <div id="abrir3" style="margin-left: 20px;">
-                                <li style="margin: 2px;position: relative;padding: 4px 0;cursor: pointer;float: left;list-style: none; font-family: Calibri;" class="ui-state-default ui-corner-all" title="ui-icon-circle-close">
-                                    <span style="float: left; margin: 0 4px; background-image: url(css/images/ui-icons_2e83ff_256x240.png);"class="ui-icon ui-icon-circle-close"
+                                <li style="margin: 2px;position: relative;padding: 4px 0;cursor: pointer;float: left;list-style: none; font-family: Calibri;" class="ui-state-default ui-corner-all" title=".ui-icon-circle-plus">
+                                    <span style="float: left; margin: 0 4px; background-image: url(css/images/ui-icons_2e83ff_256x240.png);"class="glyphicon glyphicon-remove"
                                           onclick="Unirse2('<?= strtoupper(utf8_encode($value[0])) ?>','<?= strtoupper(utf8_encode($value[5])) ?>')">
                                     </span>
                                 </li>
                             </div> 
-                            
                         </td>
 
                 </tr>  
             <?php } ?>
         </tbody>
     </table>
-    <?php } else{echo 'NO TIENE NUEVAS SOLICITUDES';} ?>
 </div>
+
+

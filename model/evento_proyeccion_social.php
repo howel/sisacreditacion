@@ -22,97 +22,55 @@ class evento_proyeccion_social extends Main {
         $data['rowspag'] = $this->getRowPag($data['total'], $p);
         return $data;
     }
-
-    function get_profesores($idevento) {
-        $sql="SELECT
-    detalle_asistencia_docente.CodigoProfesor,
-    profesores.NombreProfesor,
-    profesores.ApellidoPaterno,
-    profesores.ApellidoMaterno,
-    cargo_asistencia_evento.descripcion,
-    detalle_asistencia_docente.asistencia_docente,
-    evento.idevento,
-    evento.tema,
-    detalle_asistencia_docente.costo
-
-    FROM
-    detalle_asistencia_docente ,
-    profesores ,
-    cargo_asistencia_evento,
-    evento
-
-    WHERE detalle_asistencia_docente.asistencia_docente='1'  AND detalle_asistencia_docente.costo='0' AND
-    profesores.CodigoProfesor=detalle_asistencia_docente.CodigoProfesor AND detalle_asistencia_docente.idevento=evento.idevento AND
-    cargo_asistencia_evento.id_cargo=detalle_asistencia_docente.id_cargo and evento.idevento= '".$idevento."'";
-        $stmt = $this->db->prepare($sql);
-        
-        $stmt->execute();
-        return $stmt->fetchAll();
+    
+    function mostrar_ultimo_semestre() {
+        $semestre = $this->db->query("SELECT
+                                    distinct
+                                    max(detalle_matricula.CodigoSemestre) as semestre_actual
+                                    FROM
+                                    detalle_matricula
+                                    ");
+        $ct = $semestre->fetch();
+        $semestre = $ct['semestre_actual'];
+        return $semestre;
     }
-    
-    function get_alumnos($idevento) {
-        $sql="SELECT
-            detalle_asistencia_alumno.CodigoAlumno,
-            alumnos.NombreAlumno,
-            alumnos.ApellidoPaterno,
-            alumnos.ApellidoMaterno,
-            detalle_asistencia_alumno.asistencia_alumno
-            detalle_asistencia_alumno.id_cargo,
-            cargo_asistencia_evento.descripcion,
-            detalle_asistencia_alumno.idevento,
-            evento.tema,
-            detalle_asistencia_alumno.costo,
-            FROM
-            alumnos ,
-            detalle_asistencia_alumno ,
-            evento ,
-            cargo_asistencia_evento
-
-            WHERE detalle_asistencia_alumno.asistencia_alumno='1'  AND detalle_asistencia_alumno.costo='0' AND
-            alumnos.CodigoAlumno=detalle_asistencia_alumno.CodigoAlumno AND detalle_asistencia_alumno.idevento=evento.idevento AND
-            cargo_asistencia_evento.id_cargo=detalle_asistencia_alumno.id_cargo and evento.idevento= '".$idevento."'";
-        $stmt = $this->db->prepare($sql);
-        
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
-
-    function get_externos($idevento) {
-        $sql="SELECT
-            detalle_asistencia_externo.id_externos,
-            externos.nombre,
-            externos.apellido_paterno,
-            externos.apellido_materno,
-            detalle_asistencia_externo.asistencia_externo,
-            detalle_asistencia_externo.id_cargo,
-            cargo_asistencia_evento.descripcion,
-            detalle_asistencia_externo.idevento,
-            evento.tema,
-            detalle_asistencia_externo.costo
-            FROM
-            evento ,
-            cargo_asistencia_evento ,
-            externos ,
-            detalle_asistencia_externo
-            WHERE detalle_asistencia_externo.asistencia_externo='1'  AND detalle_asistencia_externo.costo='0' AND
-            externos.id_externos=detalle_asistencia_externo.id_externos AND detalle_asistencia_externo.idevento=evento.idevento AND
-            cargo_asistencia_evento.id_cargo=detalle_asistencia_externo.id_cargo and evento.idevento= '".$idevento."'";
-        $stmt = $this->db->prepare($sql);
-        
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
-    
-    
-    
-    function edit($id) {
+   
+  
+            function edit($id) {
         $stmt = $this->db->prepare("SELECT * FROM evento WHERE idevento=:id");
         $stmt->bindValue(':id', $id, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetchObject();
     }
+    
+    function InsertDet($_P) {
+        $fecha=  date('Y/m/d');
+        $estado=0;
+        $stmt = $this->db->prepare("INSERT INTO detalle_alumno_evento VALUES(:idevento, :fecha, :CodigoAlumno, :estado, :CodigoSemestre, :mensaje)");
+        $stmt->bindValue(':idevento',$_P['codigo'], PDO::PARAM_INT );
+        $stmt->bindValue(':fecha',$fecha, PDO::PARAM_STR );
+        $stmt->bindValue(':CodigoAlumno',$_P['alumno'], PDO::PARAM_STR);
+        $stmt->bindValue(':estado',$estado, PDO::PARAM_INT );
+        $stmt->bindValue(':CodigoSemestre',$_P['semestre'], PDO::PARAM_STR );
+        $stmt->bindValue(':mensaje',$_P['mensaje'], PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchObject();
+    }
+function InsertDet_profesor($_P) {
+        $fecha=  date('Y/m/d');
+        $estado=0;
+        $stmt = $this->db->prepare("INSERT INTO detalle_profesor_evento VALUES(:idevento, :fecha, :CodigoProfesor, :estado, :CodigoSemestre, :mensaje)");
+        $stmt->bindValue(':idevento',$_P['codigo'], PDO::PARAM_INT );
+        $stmt->bindValue(':fecha',$fecha, PDO::PARAM_STR );
+        $stmt->bindValue(':CodigoProfesor',$_P['profesor'], PDO::PARAM_STR);
+        $stmt->bindValue(':estado',$estado, PDO::PARAM_INT );
+        $stmt->bindValue(':CodigoSemestre',$_P['semestre'], PDO::PARAM_STR );
+        $stmt->bindValue(':mensaje',$_P['mensaje'], PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchObject();
+    }
 
-    function insert($_P) {
+    function insert($_P) { 
 //        if ($_SESSION['cargo'] != 'Presidente' || $_SESSION['comicion'] != 'COMISION ESPECIAL DE TUTORIA') {
 //            $cod_profesor = $_SESSION['idusuario'];
 //        }
@@ -136,7 +94,7 @@ class evento_proyeccion_social extends Main {
 
         $p1 = $stmt->execute();
         $p2 = $stmt->errorInfo();
-        return array($p1, $p2[2], "idevento" => $id);
+        return array($p1, $p2[2],"idevento"=>$id);
     }
 
     function update($_P) {
@@ -147,7 +105,7 @@ class evento_proyeccion_social extends Main {
         $sql = $this->Query("sp_evento_proyeccion_social_iu(1,:p1,:p2,:p3,:p4,:p5,:p6,:p7,:p8)");
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':p1', $_P['idevento'], PDO::PARAM_INT);
-        $stmt->bindValue(':p2', $_P['tema'], PDO::PARAM_STR);
+       $stmt->bindValue(':p2', $_P['tema'], PDO::PARAM_STR);
         $stmt->bindValue(':p3', $_P['idtipo_evento'], PDO::PARAM_INT);
         $stmt->bindValue(':p4', $semestre_ultimo, PDO::PARAM_STR);
         $stmt->bindValue(':p5', $_P['fecha'], PDO::PARAM_STR);

@@ -40,13 +40,15 @@
             <th ><?php echo strtoupper($c); ?></th>
             <?php } 
  
-//            if($unirse){echo '<th align="center">UnirseMiriammmmm</th>';}
-            
+
+             if($unirse_profesor){echo '<th align="center">Unirse</th>';}
+             if($unirse){echo '<th align="center">Unirse</th>';}
+           
             if($ver_detalles){echo '<th align="center">Ver Detalles</th>';}
-            if($edit) {echo '<th >&nbsp;</th>';}
-            if($view) {echo '<th >&nbsp;</th>';}
-            if($select) {echo '<th >&nbsp;</th>';} 
-            if($unirse){echo '<th align="center">Unirse</th>';}
+            
+            if($edit) {echo '<th >editar</th>';}
+            if($view) {echo '<th >eliminar</th>';}
+            if($select) {echo '<th >&nbsp;</th>';}          
             ?>            
             </tr>
         </thead>
@@ -66,12 +68,20 @@
                     else {$myselect .= '"'.trim($value[$key]).'",';}
               }
            $myselect .= ")'><img src='images/front.png' /></a></td>";
-          
-           
+          if($unirse_profesor){
+               ?>
+        <td align="center" width="5%" ><a href="index.php?controller=<?php echo $name; ?>&action=unirse_profesor_evento&id=<?php  echo $value[0]; ?>" title="Unirse"><img src="../web/images/add.png"></a></td>
+                <?php
+           }
+           if($unirse){
+               ?>
+        <td align="center" width="5%" ><a href="index.php?controller=<?php echo $name; ?>&action=unirse_evento&id=<?php  echo $value[0]; ?>" title="Unirse"><img src="../web/images/add.png"></a></td>
+                <?php
+           }
            
            if($ver_detalles){
                ?>
-                    <td align="center" width="5%" ><a href="index.php?controller=<?php echo $name; ?>&action=show_detalles&id=<?php  echo $value[0]; ?>" title="Ver Detalles" class="glyphicon glyphicon-chevron-down" ></a></td>
+                    <td align="center" width="5%" ><a href="index.php?controller=<?php echo $name; ?>&action=show_detalles&id=<?php  echo $value[0]; ?>" title="Ver Detalles" class="glyphicon glyphicon-list-alt btn-sm" ></a></td>
                 <?php
            }
               if($edit) 
@@ -85,20 +95,11 @@
                    <td align="center" width="5%"  ><a href="javascript:delete_reg('<?php echo $name; ?>','<?php  echo $value[0]; ?>')" title="Eliminar"><img alt="" src="images/delete.png" /></a></td>
                   <?php 
               }
-              
               if($select) {
                   echo $myselect;
               }
-              
-              if($unirse){
-               ?>
-                    <td align="center" width="5%" ><a href="index.php?controller=<?php echo $name; ?>&action=unirse_evento&id=<?php  echo $value[0]; ?>" title="Unirse"> <img alt="" src="images/email_add.png" /></a></td>
-                <?php
-           }
               echo '</tr>';
           } 
-        
-          
           
           for($i=0;$i<($nr-$n);$i++)
           {
@@ -110,7 +111,6 @@
             if($edit) {echo '<th >&nbsp;</th>';}
             if($view) {echo '<th >&nbsp;</th>';}
             if($select) {echo '<th >&nbsp;</th>';}
-            if($unirse) {echo '<th >&nbsp;</th>';}
             echo "</tr>";
           }          
        ?>        

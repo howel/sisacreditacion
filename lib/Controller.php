@@ -39,18 +39,6 @@ public function leer_sub_eventos($idevento) {
         $view->setTemplate('../view/evento_proyeccion_social/_pre_actividades.php');
         return $view->renderPartial();
     }
-    
-    public function leer_pre_actividades_sinUpdate($idevento) {
-          
-        $obj = new main();
-        $view = new View();
-        $data=array();
-        $datos=$data['rows'] = $obj->get_pre_actividades($idevento);
-//        print_r($datos);exit;
-        $view->setData($data);
-        $view->setTemplate('../view/evento_proyeccion_social/_pre_actividades.php');
-        return $view->renderPartial();
-    }
 
     
 public function getFiels($p){
@@ -249,7 +237,7 @@ public function Select($p) {
         return $view->renderPartial();
     }
     
-     public function grilla_E_PS_EU($name,$columns,$rows,$options,$pag,$edit,$view,$select=false,$new=true,$ver_detalles=false,$unirse=false)
+     public function grilla_E_PS_EU($name,$columns,$rows,$options,$pag,$edit,$view,$select=false,$new=true,$ver_detalles=false,$unirse=false,$unirse_profesor=false)
     {
         $obj = new Main();        
         $data = array();
@@ -264,6 +252,7 @@ public function Select($p) {
         $data['new'] = $new;
         $data['ver_detalles'] = $ver_detalles;
         $data['unirse'] = $unirse;
+        $data['unirse_profesor'] = $unirse_profesor;
         $data['combo_search'] = $this->Combo_Search($options);
         $view = new View();
         $view->setData($data);
@@ -1128,7 +1117,6 @@ public function ListaProyecto_P($p) {
 //        $obj->filtro = $p['filtro'];
 //        $obj->filtro1 = $p['filtro1'];
         $data = array();
-
         $data['rows'] = $obj->getDatos_grilla_solicitudes();
         $data['name'] = $p['name'];
         $data['id'] = $p['id'];
@@ -1138,7 +1126,54 @@ public function ListaProyecto_P($p) {
         $view->setData($data);
         $view->setTemplate('../view/solicitudes.php');
         return $view->renderPartial();
+        
+        
+        
     }
+    
+    public function grilla_solicitudes_ps($p) {
+        $obj = new Main();
+//        $obj->table = $p['table'];
+////        $obj->criterio = $p['criterio1'];
+//        $obj->criterio = $p['criterio'];
+//        $obj->filtro = $p['filtro'];
+//        $obj->filtro1 = $p['filtro1'];
+        $data = array();
+        $data['rows'] = $obj->getDatos_grilla_solicitudes_ps();
+        $data['name'] = $p['name'];
+        $data['id'] = $p['id'];
+        $data['code'] = $p['code'];
+        $data['disabled'] = $p['disabled'];
+        $view = new View();
+        $view->setData($data);
+        $view->setTemplate('../view/solicitudes_ps.php');
+        return $view->renderPartial();
+        
+        
+        
+    }
+    public function grilla_solicitudes_docentes_ps($p) {
+        $obj = new Main();
+//        $obj->table = $p['table'];
+////        $obj->criterio = $p['criterio1'];
+//        $obj->criterio = $p['criterio'];
+//        $obj->filtro = $p['filtro'];
+//        $obj->filtro1 = $p['filtro1'];
+        $data = array();
+        $data['rows'] = $obj->getDatos_grilla_solicitudes_docentes_ps();
+        $data['name'] = $p['name'];
+        $data['id'] = $p['id'];
+        $data['code'] = $p['code'];
+        $data['disabled'] = $p['disabled'];
+        $view = new View();
+        $view->setData($data);
+        $view->setTemplate('../view/solicitudes_docentes_ps.php');
+        return $view->renderPartial();
+        
+        
+        
+    }
+    
 }
 
 

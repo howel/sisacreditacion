@@ -6,47 +6,51 @@
 <div class="div_container">
     <h6 class="ui-widget-header">Registro de Evento </h6>
 
-  <style>
+<style>
 
     fieldset{
         
     -webkit-border-radius: 0 0 20px 20px;
     -moz-border-radius: 0 0 20px 20px;
     border-radius: 0 0 20px 20px;
-         border: purple 5px dotted; 
+         border: black 1px solid; 
     padding: 15px 20px;
+    
          }
-         .transparente{
-         opacity: 0.8;
-         -moz-opacity: 0.8;
-        filter: alpha(opacity=80);
-        -khtml-opacity: 0.8;
-        }
-        strong{
-            color:#330099;
-            font-family: Comic Sans;
-            
-        }
+       
+       
         h2 {
     
        
-    color: #330099;
+    color: #242424;
     font-size: 28px;
     padding: 5px 5px;
+    text-shadow: 0 0 0.2em #999999;
 }
 
          h2 span[class*="fontawesome-"] {
     margin-right: 14px;
 }
        
-        
+        div {
+   margin: .3em 0;
+}
+label {
+   width: 20%;
+   float: left;
+   text-align: left;
+   
+  
+   
+}
+
       
 </style>
 
     <form id="frm" action="index.php" method="POST">
         <input type="hidden" name="controller" value="evento_proyeccion_social" />
         <input type="hidden" name="action" value="save" />
-        <div class="contFrm ui-corner-all" style="background-image:url(css/images_eapisi/ima.jpg);">
+        <div class="contFrm ui-corner-all" >
             <div class="transparente" class="contenido" style="margin:0 auto; width: 500px; ">
 <!--               <fieldset style="border:6px groove #ccc; background-image:url(css/images_eapisi/fondo.gif) ;"  class="ui-corner-all" >-->
             
@@ -59,12 +63,12 @@
                                 <div class="col-md-6">
                                     
                           
-                                       <big><strong for="idevento" >Codigo</strong></big>
+                                      <big><label for="idevento" >Codigo</label></big>
                                     <input type="text" class="form-control oblig" placeholder="Codigo" name="idevento" id="idevento" value="<?php echo $obj->idevento; ?>" readonly>
                                 </div>   
                             <div class="col-md-6">
                                     
-                       <big><strong for="tema" >Tema del evento</strong></big>
+                        <big><label for="tema" style="width: 161px;">Tema del evento</label></big>
                            
                                     <input type="text" class="form-control oblig" placeholder="Tema" name="tema" id="tema" value="<?php echo $obj->tema; ?>">
                          </div>
@@ -75,7 +79,7 @@
                      <div class="col-md-12">
                          <div class="col-md-6">
                        
-                        <big><strong>Lugar</strong></big>
+                        <big><label>Lugar</label></big>
                            
                                 <input id="lugar" maxlength="100" name="lugar" class="text ui-widget-content ui-corner-all" placeholder="Lugar" style=" width: 185px; text-align: left;" value="<?php echo $obj->fecha; ?>" />
                             </div>
@@ -85,7 +89,7 @@
                             <div class="col-md-6">
                                         
                          
-                       <big><strong for="fecha" >Fecha</strong></i></big>
+                        <big><label for="fecha" >Fecha</label></i></big>
                           
                            
                                         <input type="text" class="form-control oblig" placeholder="Fecha" name="fecha" id="fecha" value="<?php echo $obj->fecha; ?>">
@@ -98,14 +102,14 @@
                                 <div class="col-md-6">
                         
                            
-                        <big> <strong> Tipo de Evento:</strong></big>
+                       <big> <label style="width: 161px;"> Tipo de Evento:</label></big>
                           
                             
 
                                 <?php echo $tipo_evento; ?>
                                 </div>
                              <div class="col-md-6">
-                        <big>  <strong>Departamento</strong></big>
+                         <big>  <label>Departamento</label></big>
                            
                                 <?php echo $departamento; ?>
                            </div>
@@ -114,7 +118,7 @@
                       
                           <div class="col-md-12">
                               <div class="col-md-6">
-                             <big><strong>Provincia</strong></big>
+                            <big><label>Provincia</label></big>
                             
                                 <?php echo $provincia; ?>
                           </div> 
@@ -122,7 +126,7 @@
                         
                            <div class="col-md-6">
                         
-                        <big><strong>Distrito</strong></big>
+                       <big><label>Distrito</label></big>
                                 <?php if (!isset($distrito)) { ?>
                                     <select id="distrito" name="distrito" style="width: 100%;"class="ui-corner-all text ui-widget-content">
                                         <option value="">.........</option>

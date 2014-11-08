@@ -13,7 +13,7 @@
         <link type="text/css" href="css/layout.css" rel="stylesheet" />
         <link href="css/cssmenu.css" rel="stylesheet" type="text/css" />
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
-        <!--<script type="text/javascript" src="js/jquery-1.6.1.min.js"></script>-->
+        <script type="text/javascript" src="js/jquery-1.6.1.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>    
         <script type="text/javascript" src="js/menus.js"></script>
         <script type="text/javascript" src="js/session.js"></script>
